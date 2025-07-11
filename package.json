@@ -1,5 +1,5 @@
 {
-  "name": "login-page",
+  "name": "login",
   "version": "1.0.0",
   "description": "Modern responsive login page with React and GSAP animations",
   "main": "index.js",

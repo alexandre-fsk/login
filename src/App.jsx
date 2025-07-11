@@ -6,9 +6,24 @@ import './App.css'
 
 function App() {
   const [isLogin, setIsLogin] = useState(true)
+  const [darkMode, setDarkMode] = useState(() => {
+    // Check localStorage or system preference
+    if (typeof window !== 'undefined') {
+      const stored = localStorage.getItem('theme')
+      if (stored) return stored === 'dark'
+      return window.matchMedia('(prefers-color-scheme: dark)').matches
+    }
+    return false
+  })
   const containerRef = useRef(null)
   const formRef = useRef(null)
   const overlayRef = useRef(null)
+
+  useEffect(() => {
+    // Set theme attribute on html
+    document.documentElement.setAttribute('data-theme', darkMode ? 'dark' : 'light')
+    localStorage.setItem('theme', darkMode ? 'dark' : 'light')
+  }, [darkMode])
 
   useEffect(() => {
     // Initial animation
@@ -86,14 +101,26 @@ function App() {
     )
   }
 
+  const handleToggleDarkMode = () => setDarkMode((prev) => !prev)
+
   return (
     <div className="app">
+      <button
+        className={`darkmode-toggle${darkMode ? ' active' : ''}`}
+        onClick={handleToggleDarkMode}
+        aria-label={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+      >
+        {darkMode ? (
+          <i className="fas fa-sun"></i>
+        ) : (
+          <i className="fas fa-moon"></i>
+        )}
+      </button>
       <div className="login-container" ref={containerRef}>
         <div className="form-container">
           <div className="form-wrapper" ref={formRef}>
             {isLogin ? <LoginForm /> : <SignupForm />}
           </div>
-          
           <div className="overlay-container">
             <div className="overlay" ref={overlayRef}>
               <div className="overlay-panel overlay-left">

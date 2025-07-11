@@ -4,6 +4,9 @@
   box-sizing: border-box;
 }
 
+/****************************
+ * Mobile-First & Dark Mode *
+ ****************************/
 :root {
   --primary-color: #6366f1;
   --primary-dark: #4f46e5;
@@ -15,10 +18,30 @@
   --error-color: #ef4444;
   --success-color: #22c55e;
   --white: #ffffff;
+  --background: #f8fafc;
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
   --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+}
+
+[data-theme="dark"] {
+  --primary-color: #818cf8;
+  --primary-dark: #6366f1;
+  --secondary-color: #18181b;
+  --text-primary: #f1f5f9;
+  --text-secondary: #cbd5e1;
+  --text-light: #64748b;
+  --border-color: #334155;
+  --error-color: #f87171;
+  --success-color: #4ade80;
+  --white: #18181b;
+  --background: #18181b;
+}
+
+html, body {
+  min-height: 100vh;
+  background: var(--background);
 }
 
 body {
@@ -27,10 +50,10 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  min-height: 100vh;
+  background: var(--background);
   color: var(--text-primary);
   line-height: 1.6;
+  transition: background 0.3s, color 0.3s;
 }
 
 #root {
@@ -57,4 +80,11 @@ input {
 a {
   text-decoration: none;
   color: inherit;
+}
+
+/* Mobile-first adjustments */
+@media (min-width: 600px) {
+  #root {
+    padding: 2rem;
+  }
 } 
